@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2b2d5c"/>
+      <stop offset="0.55" stop-color="#c8607a"/>
+      <stop offset="1" stop-color="#f4b37a"/>
+    </linearGradient>
+  </defs>
+  <rect width="1024" height="1024" fill="url(#sky)"/>
+  <circle cx="700" cy="560" r="120" fill="#ffd9a0" opacity="0.9"/>
+  <path d="M0 700 L260 560 L420 650 L640 520 L1024 720 L1024 1024 L0 1024 Z" fill="#3a2f4f"/>
+  <path d="M0 820 L300 720 L560 800 L820 730 L1024 800 L1024 1024 L0 1024 Z" fill="#231d33"/>
+  <text x="512" y="960" font-family="system-ui, sans-serif" font-size="34" fill="#ffffff" fill-opacity="0.85" text-anchor="middle">Sample image: set REPLICATE_API_TOKEN for real ones</text>
+</svg>
