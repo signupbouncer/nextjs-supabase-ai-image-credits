@@ -7,7 +7,9 @@ export async function POST(request: Request) {
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) return Response.json({ error: "Sign in first." }, { status: 401 });
 
-  const { prompt } = await request.json().catch(() => ({}));
+  // Anything but a JSON object with a string prompt gets a 400, including a body of null.
+  const body: unknown = await request.json().catch(() => null);
+  const prompt = typeof body === "object" && body !== null && "prompt" in body ? body.prompt : undefined;
   if (typeof prompt !== "string" || !prompt.trim() || prompt.length > 500) {
     return Response.json({ error: "Write a prompt of up to 500 characters." }, { status: 400 });
   }
@@ -25,11 +27,33 @@ export async function POST(request: Request) {
   } catch (err) {
     // The model failed, so the user gets the credit back.
     console.error("generate:", err);
-    const { data: refunded } = await createAdminClient().rpc("refund_credit", { p_user_id: user.id });
+    const refunded = await refundCredit(user.id);
+    if (refunded === null) {
+      return Response.json(
+        { error: "Image generation failed. We could not give your credit back.", credits },
+        { status: 502 },
+      );
+    }
     return Response.json(
-      { error: "Image generation failed. Your credit was returned.", credits: refunded ?? credits },
+      { error: "Image generation failed. Your credit was returned.", credits: refunded },
       { status: 502 },
     );
+  }
+}
+
+// Gives one credit back with the secret key and returns the new balance, or null if the refund failed. A failed
+// refund is logged and never retried: if the first call did reach the database, a retry would return two credits.
+async function refundCredit(userId: string): Promise<number | null> {
+  try {
+    const { data, error } = await createAdminClient().rpc("refund_credit", { p_user_id: userId });
+    if (error || typeof data !== "number") {
+      console.error("refund failed:", userId, error?.message ?? "no balance returned");
+      return null;
+    }
+    return data;
+  } catch (err) {
+    console.error("refund failed:", userId, err);
+    return null;
   }
 }
 // #endregion
