@@ -1,10 +1,10 @@
 # AI image generator with free credits
 
-A Next.js and Supabase app that gives each new account 10 free image credits, and refuses the accounts made to farm
-them.
+A Next.js and Supabase app that gives each new account 10 free image credits. A Supabase hook blocks disposable emails
+and limits repeat Gmail signups before the account exists.
 
 The walkthrough is
-[Build an AI image generator with free credits, and refuse the accounts made to farm them](https://signupbouncer.com/guides/ai-image-credits).
+[Build an AI image generator with Next.js and Supabase](https://signupbouncer.com/guides/ai-image-credits).
 
 ## What it does
 
