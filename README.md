@@ -68,8 +68,8 @@ Authentication, then Hooks.
 | Variable | Value |
 | --- | --- |
 | `NEXT_PUBLIC_SUPABASE_URL` | The Project URL, `http://127.0.0.1:54321` locally. |
-| `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` | The key labelled Publishable (`sb_publishable_...`). |
-| `SUPABASE_SECRET_KEY` | The key labelled Secret (`sb_secret_...`). Server only. The route uses it to give a credit back. |
+| `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` | The key labeled Publishable (`sb_publishable_...`). |
+| `SUPABASE_SECRET_KEY` | The key labeled Secret (`sb_secret_...`). Server only. The route uses it to give a credit back. |
 | `REPLICATE_API_TOKEN` | Optional. Leave it empty to use the sample image. |
 
 ## Tests
